@@ -1,0 +1,163 @@
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    form {
+        border: 3px solid #f1f1f1;
+    }
+
+    input[type=text],
+    input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #04AA6D;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+        span.psw {
+            display: block;
+            float: none;
+        }
+    }
+</style>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Document Share</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+</head>
+
+
+<div class="col" style="text-align: center;margin-top: 16px;">
+    <button class="btn btn-secondary tablink" style="width: min-content;background-color: rgb(150, 150, 150);border: 3px solid rgb(99, 99, 99);margin: 4px;" (click)="showBid('userList')"
+        (click)="getUsers()">Kullanıcılar</button>
+    <button class="btn btn-secondary tablink" style="width: min-content;background-color: rgb(150, 150, 150);border: 3px solid rgb(99, 99, 99);margin: 4px;" (click)="showBid('fileList')"
+        (click)="getFiles()">Dokümanlar</button>
+</div>
+
+<div class="row col-md-11" style="margin-left:auto;margin-right:auto;margin-top: 24px;">
+    <ng-container *ngIf="currentSelect == 'userList'">
+        <h2  style="text-align: center;">Kullanıcı Listesi</h2>
+        <table class="table table-responsive">
+            <tr>
+                <th style="padding: 10px;">Id</th>
+                <th style="padding: 10px;">Kullanıcı Ad</th>
+                <th style="padding: 10px;">Mail</th>
+            </tr>
+            <tr *ngFor="let user of users">
+                <td style="padding: 10px;">
+                    <strong class="book-title" style="padding: 10px;">{{user.id}}</strong>
+                </td>
+                <td style="padding: 10px;">{{user.userName}}</td>
+                <td style="padding: 10px;">{{user.email}}</td>
+                <td style="padding: 10px;"><button class="btn btn-xs"
+                        style="background-color: rgb(6, 155, 255);color: #f1f1f1;">Güncelle</button></td>
+                <td style="padding: 10px;"><button (click)="deleteUser(user.id)" class="btn btn-xs"
+                        style="background-color: rgb(243, 61, 61);color: #f1f1f1;padding-left: 30px;padding-right: 30px;">Sil</button>
+                </td>
+            </tr>
+        </table>
+    </ng-container>
+
+    <ng-container *ngIf="currentSelect == 'fileList'">
+        <h2  style="text-align: center;">Doküman Listesi</h2>
+        <table class="table table-responsive">
+            <tr>
+                <th style="padding: 10px;">Id</th>
+                <th style="padding: 10px;">Ad</th>
+                <th style="padding: 10px;">Kategori</th>
+                <th style="padding: 10px;">Boyut</th>
+                <th style="padding: 10px;">Beğeni</th>
+                <th style="padding: 10px;">İndirilme</th>
+                <th style="padding: 10px;">Admin Onayı</th>
+            </tr>
+            <tr *ngFor="let file of files">
+                <td style="padding: 10px;">
+                    <strong class="book-title" style="padding: 10px;">{{file.id}}</strong>
+                </td>
+                <td style="padding: 10px;">{{file.name}}</td>
+                <td style="padding: 10px;">{{file.category}}</td>
+                <td style="padding: 10px;">{{file.length}}</td>
+                <td style="padding: 10px;">{{file.likes}}</td>
+                <td style="padding: 10px;">{{file.downloadCount}}</td>
+                <td style="padding: 10px;">{{file.adminConfirmed}}</td>
+                <td style="padding: 10px;"><button class="btn btn-xs" (click)="adminConfirmed(file)"
+                        style="background-color: rgb(6, 155, 255);color: #f1f1f1;">Onayla</button></td>
+                <td style="padding: 10px;"><button class="btn btn-xs" (click)="adminDenied(file)"
+                        style="background-color: rgb(243, 61, 61);color: #f1f1f1;padding-left: 30px;padding-right: 30px;">Sil</button>
+                </td>
+            </tr>
+        </table>
+    </ng-container>
+</div>
+
+</html>
+
+
+<!--
+<form [formGroup]="loginForm" (ngSubmit)="adminLogin()" class="form-login col-md-5" style="left: 28%; top: 20%; position: absolute;">
+    <h1 class="mt-5" style="display: flex; align-items: center; justify-content: center;">Giriş</h1>
+    <div class="container">
+        <label for="uname"><b>Kullanıcı Ad</b></label>
+        <div *ngIf="invalidLogin" class="form-group">
+            <input type="text" id="userName" name="userName" formControlName="userName" class="form-control" placeholder="Kullanıcı Ad"
+                autofocus>
+            <span class="help-block" *ngIf="loginForm.get('userName')?.hasError('required') && loginForm.get('userName')?.touched">
+                Kullanıcı adı girilmesi zorunludur.
+            </span>
+        </div>
+    
+        <label for="psw"><b>Şifre</b></label>
+        <div *ngIf="invalidLogin" class="form-group">
+            <input type="password" id="password" name="password" formControlName="password" class="form-control"
+                placeholder="Şifre">
+            <span class="help-block"
+                *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+                Şifre girilmesi zorunludur.
+            </span>
+            <span class="help-block"
+                *ngIf="loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched">
+                Şifre en az 5 karakter boyutunda olmalıdır.
+            </span>
+            <span class="help-block"
+                *ngIf="loginForm.get('password')?.hasError('maxlength') && loginForm.get('password')?.touched">
+                Şifre en fazla 10 karakter boyutunda olmalıdır.
+            </span>
+    
+        </div>
+            
+        <button class="btn btn-lg btn-primary btn-block bg-dark" [disabled]="!loginForm.valid" type="submit">Giriş</button>
+      </div>
+</form>
+-->

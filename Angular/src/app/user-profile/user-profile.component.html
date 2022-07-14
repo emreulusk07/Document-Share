@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: fit-content;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+        }
+
+        .title {
+            color: grey;
+            font-size: 18px;
+        }
+
+        button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
+        }
+
+        button:hover,
+        a:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            style="width:30%">
+        <h1>{{loginUser.userName}}</h1>
+        <p class="title">{{loginUser.id}}</p>
+        <a class="nav-link active" href="#studio" role="tab" data-toggle="tab">
+            <i class="material-icons"></i>
+            {{loginUser.email}}
+        </a>
+        <div style="margin: 24px 0;">
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+        </div>
+        <p><button style="background-color: #593196;">Contact</button></p>
+    </div>
+
+    <ng-container *ngFor="let file of files">
+        <div class="tabcontent" class="col-md-12 mt-2 m-4">
+            <div class="card mb-3 shadow-sm col-md-10"
+                style="border:2px solid #b3a3ca;margin-left:auto;margin-right:auto;">
+                <div class="row g-0">
+                    <div class="col-md-3" style="display: flex; align-items: center; justify-content: center;">
+                        <!--<img role="img" class="img-fluid rounded-start" aria-label="Placeholder: Dosya" src="{{file.name}}" 
+                            alt="Card image cap" focusable="false">-->
+                        <h1 class="imgupload"><i class="fa fa-file" style="font-size: 8vh; color: #593196;"></i></h1>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card-body">
+                            <h4 class="card-title" style="font-weight: 700; font-size: x-large; margin-bottom: 20px;">
+                                {{file.name}}</h4>
+                            <p class="card-text"><b>Doküman Yolu: </b>{{file.path}}</p>
+                            <p class="card-text"><b>Doküman Türü: </b>{{file.contentType}}</p>
+                            <p class="card-text"><b>Doküman Kategorisi: </b>{{file.category}}</p>
+                            <p class="card-text"><b>Doküman Boyutu: </b>{{file.length}} Bayt</p>
+                            <p class="card-text"><b>Doküman İndirme Sayısı: </b>{{file.downloadCount}}</p>
+                            <p class="card-text"><b>Dokümanı Ekleyen Kullanıcı Id: </b>{{file.userId}}</p>
+                            <!--<p class="card-text">Kullanıcı: {{document.loginUser}}</p>-->
+                            <!--<p class="card-text">Beğeni Sayısı: {{document.likes}}</p>-->
+                            <!--<p class="card-text"><small class="text-muted">{{document.createdDate}} gün önce</small></p>-->
+                            <div class="d-flex justify-content-around align-items-center" style="margin-top: 2rem;">
+                                <div class="btn-group">
+                                    <button type="button" routerLink="/fileDetail/{{file.id}}"
+                                        class="btn btn-sm btn-outline-secondary"
+                                        style="font-size: medium; padding-left: 16px; padding-right: 16px; background-color: rgb(71, 71, 71); border: 3px solid #fff;">Detay</button>
+                                    <button type="button" (click)="downloadMyFile(file.id, file.contentType)" value="Download"
+                                        class="btn btn-sm btn-outline-secondary"
+                                        style="font-size: medium; padding-left: 16px; padding-right: 16px; background-color: rgb(71, 71, 71); border: 3px solid #fff;">İndir</button>
+                                        <button type="button" value="" class="btn btn-sm btn-outline-secondary"
+                                        style="font-size: medium; padding-left: 16px; padding-right: 16px; background-color: rgb(128, 128, 128); border: 3px solid #fff;">
+                                        <i class="fa fa-heart" style="font-size: 2.8vh; color: rgba(255, 0, 0, 0.797);"></i>  {{file.likes}}</button>
+                                </div>
+                                <small class="text-muted">Doküman Id: {{file.id}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+</body>
+
+</html>

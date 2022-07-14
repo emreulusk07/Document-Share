@@ -1,0 +1,62 @@
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    form {border: 3px solid #f1f1f1;}
+    
+    input[type=text], input[type=password] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    
+    button {
+      background-color: #04AA6D;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    
+    button:hover {
+      opacity: 0.8;
+    }
+    
+    .container {
+      padding: 16px;
+    }
+    
+    span.psw {
+      float: right;
+      padding-top: 16px;
+    }
+    
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+      span.psw {
+         display: block;
+         float: none;
+      }
+    }
+    </style>
+
+
+<form [formGroup]="forgotForm" (ngSubmit)="requestPassword()" class="form-login col-md-5" style="margin-top: 24px;left: 28%; top: 20%; position: absolute;">
+    <h1 class="mt-5" style="display: flex; align-items: center; justify-content: center;">Giriş</h1>
+    <div class="container">
+        <label for="email"><b>Mail</b></label>
+        <div class="form-group">
+            <input type="text" id="email" name="email" formControlName="email" class="form-control" placeholder="Mail"
+                autofocus>
+            <span class="help-block" *ngIf="forgotForm.get('email')?.hasError('required') && forgotForm.get('email')?.touched">
+                Mail girilmesi zorunludur.
+            </span>
+        </div>
+            
+        <button class="btn btn-lg btn-primary btn-block bg-dark" [disabled]="!forgotForm.valid" type="submit">Giriş</button>
+        <!--<button class="btn btn-lg btn-primary btn-block bg-dark" (ngSubmit)="confirmEmail()" type="submit">Doğrula</button>-->
+      </div>
+</form>

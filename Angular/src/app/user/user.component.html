@@ -1,0 +1,22 @@
+<form class="d-flex my-2 my-lg-4 m-4">
+    <input class="form-control me-sm-2" type="search" name="search" placeholder="Kullanıcı Ara"  [(ngModel)]="searchText">
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit" (click)="showUser('continueUser')">Ara</button>
+  </form>
+  
+<ng-container *ngFor="let user of users | userSearch:searchText">
+    <ng-container *ngIf="currentUser == 'continueUser'">
+      <div class="tabcontent" class="col-md-4 mt-2 m-4" style="border: 3px solid gray; background-color: rgb(240, 240, 240);">
+        <div class="col-md-8">
+          <div class="card-body">
+            <h3 class="card-title" style="text-align: center;">{{user.userName}}</h3>
+            <p class="card-text"><strong>Kullanıcı Id</strong><br>{{user.id}}</p>
+            <p class="card-text"><strong>Kullanıcı Mail</strong><br>{{user.email}}</p>
+            <!--<p class="card-text"><small class="text-muted">{{user.username}} gün önce</small></p>-->
+            <!--<div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted">Doküman Id: {{user.username}}</small>
+          </div>-->
+          </div>
+      </div>
+      </div>
+    </ng-container>
+  </ng-container>

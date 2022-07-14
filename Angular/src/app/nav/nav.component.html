@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+    <a class="navbar-brand" href="#">Document Share</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="file" routerLinkActive="active">Dokümanlar
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="fileAdd">Doküman Ekle</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="document">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about">Hakkında</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">İletişim</a>
+          </li>
+          <!--
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </li>
+        -->
+        </ul>
+          <a class="nav-link btn btn-secondary" style="margin-right: 16px;" routerLink="user" routerLinkActive="active">Kullanıcı Ara</a>
+        <div *ngIf="!isAuthenticated" class="d-flex nav navbar-nav navbar-right">
+          <button routerLink="login" routerLinkActive="active" class="btn btn-secondary m-1 pt-2" type="submit" style="background-color: rgb(49, 153, 49);color: white;">Giriş Yap</button>
+          <button routerLink="register" routerLinkActive="active" class="btn btn-secondary m-1 pt-2" type="submit" style="background-color: rgb(49, 153, 49);color: white;">Kaydol</button>
+          
+        </div>
+        <button *ngIf="isAuthenticated" routerLink="userProfile" routerLinkActive="active" class="btn btn-secondary m-1 pt-2" type="submit">Profilim</button>
+        <button *ngIf="isAuthenticated" routerLink="admin" routerLinkActive="active" class="btn btn-secondary m-1 pt-2" type="submit">Admin</button>
+        <!--
+        <form *ngIf="!isAuthenticated" #loginForm="ngForm" (ngSubmit)="login()" class="d-flex">
+          <input class="form-control mt-1 mb-1 pt-2" name="mail" [(ngModel)]="loginUser.mail" required type="text" placeholder="E-posta">
+          <input class="form-control mt-1 mb-1 pt-2" name="password" [(ngModel)]="loginUser.password" required type="password" placeholder="Şifre">
+          <button class="btn btn-secondary pt-2" [disabled]="!loginForm.valid" type="submit">Giriş</button>
+        </form>-->
+        <button class="btn btn-secondary pt-2" *ngIf="isAuthenticated" (click)="logOut()" type="submit" style="background-color: rgb(243, 61, 61);color: white;">Çıkış</button>
+        
+      </div>
+    </div>
+  </nav>

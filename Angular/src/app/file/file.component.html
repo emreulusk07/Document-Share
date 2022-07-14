@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<body>
+
+  <!-- Side Navigation -->
+  <!-- <nav class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-center" style="display:none" id="mySidebar">
+  <h1 class="w3-xxxlarge w3-text-theme">Side Navigation</h1>
+  <button class="w3-bar-item w3-button" onclick="w3_close()">Close <i class="fa fa-remove"></i></button>
+  <a href="#" class="w3-bar-item w3-button">Link 1</a>
+  <a href="#" class="w3-bar-item w3-button">Link 2</a>
+  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+  <a href="#" class="w3-bar-item w3-button">Link 4</a>
+</nav> -->
+
+  <!-- Header -->
+  <header class="w3-container w3-theme w3-padding" id="myHeader" style="background-color: #593196 !important;">
+    <!-- <i onclick="w3_open()" class="fa fa-bars w3-xlarge w3-button w3-theme"></i> -->
+    <div class="w3-center">
+      <h4>DOKÜMAN PAYLAŞIM SİTESİ</h4>
+      <h1 class="w3-xxxlarge w3-animate-bottom">DOCUMENT SHARE</h1>
+      <div class="w3-padding-32">
+        <a class="w3-btn w3-xlarge w3-theme-dark w3-hover-teal" href="https://www.ilovepdf.com/word_to_pdf"
+          style="font-weight:900;" target="_blank">Document Converter</a>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="row">
+    <div class="col">
+      <form class="my-2 my-lg-4 m-4">
+        <input placeholder="Doküman Ara" name="search" class="form-control mr-sm-2" [(ngModel)]="searchText"
+          style="width: 50%; display: inline;">
+        <button type="submit" (click)="allFile()" style="border: 0px solid red;"><i style="font-size: large;"
+            class="fa fa-trash"></i></button>
+      </form>
+      <div class="col my-2 my-lg-4 m-4">
+        <label for="category">Doküman Kategorisi Seç</label>
+        <select name="category" id="category" [(ngModel)]="selectedCategory"
+          style="height: 40px; width: 130px; text-align:center; margin-left: 20px;">
+          <option *ngFor="let cate of fileCategorys">{{cate}}</option>
+        </select>
+        <div style="margin: 1rem; display: inline;"></div>
+        <button style="padding-left: 16px; padding-top: 7px; display: inline; border: 2px solid gray;" type="submit"
+          (click)="searchFile(searchText,selectedCategory)">Doküman Ara<i class="btn fa fa-search"></i></button>
+      </div>
+    </div>
+    <ng-container *ngFor="let file of files">
+      <div class="tabcontent" class="col-md-11 mt-2 m-4">
+        <!--<div class="card mb-4 shadow-sm" style="flex-direction: row;">
+
+                    <div class="card-body">
+                        <h4 *ngIf="document" class="card-text">{{document.title}}</h4>
+                        <p *ngIf="document" class="card-text">Açıklama: {{document.description}} <br>Tarih:
+                            {{document.createdDate}} <br>Beğeni Sayısı: {{document.likes}} <br>Kullanıcı: {{document.loginUser}}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" routerLink="/documentDetail/{{document.id}}"
+                                    class="btn btn-sm btn-outline-secondary">Detay</button>
+                                <button type="button" routerLink="/offerAdd/{{document.id}}"
+                                    class="btn btn-sm btn-outline-secondary">İndir</button>
+                            </div>
+                            <small class="text-muted">Doküman Id: {{document.id}}</small>
+                        </div>
+                    </div>
+                </div>-->
+        <div class="card mb-3 shadow-sm col-md-10" style="border:2px solid #b3a3ca;margin-left:auto;margin-right:auto;">
+          <div class="row g-0">
+            <div class="col-md-3" style="display: flex; align-items: center; justify-content: center;">
+              <!--<img role="img" class="img-fluid rounded-start" aria-label="Placeholder: Dosya" src="{{file.name}}" 
+                        alt="Card image cap" focusable="false">-->
+              <h1 class="imgupload"><i class="fa fa-file" style="font-size: 8vh; color: #593196;"></i></h1>
+            </div>
+            <div class="col-md-9">
+              <div class="card-body">
+                <h4 class="card-title" style="font-weight: 700; font-size: x-large; margin-bottom: 20px;">{{file.name}}
+                </h4>
+                <p class="card-text"><b>Doküman Türü: </b>{{file.contentType}}</p>
+                <p class="card-text"><b>Doküman Kategorisi: </b>{{file.category}}</p>
+                <p class="card-text"><b>Doküman Boyutu: </b>{{file.length}} Bayt</p>
+                <p class="card-text"><b>Doküman İndirme Sayısı: </b>{{file.downloadCount}}</p>
+                <div class="col">
+                  <p class="card-text" style="display: inline; margin-right: 2rem;"><b>Dokümanı Ekleyen Kullanıcı Id:
+                    </b>{{file.userId}}</p>
+                  <button type="submit" routerLink="/userProfileForDocument/{{file.userId}}" routerLinkActive="active"
+                    style="font-size: medium; padding-left: 16px; padding-right: 16px; background-color: #b09fca;
+                            " class="btn-outline-secondary"><small style="color: rgb(60, 60, 60);">Profile Git
+                      -></small></button>
+                </div>
+                <!--<p class="card-text">Kullanıcı: {{document.loginUser}}</p>-->
+                <!--<p class="card-text">Beğeni Sayısı: {{document.likes}}</p>-->
+                <!--<p class="card-text"><small class="text-muted">{{document.createdDate}} gün önce</small></p>-->
+                <div class="d-flex justify-content-between align-items-center" style="margin-top: 2rem;">
+                  <div class="btn-group">
+                    <button type="button" routerLink="/fileDetail/{{file.id}}" class="btn btn-sm btn-outline-secondary"
+                      style="font-size: medium; padding-left: 16px; padding-right: 16px;">Dosya Detayı</button>
+                    <button type="button" (click)="downloadMyFile(file.id, file.contentType)" target="_blank" routerLink=""
+                      value="Download" class="btn btn-sm btn-outline-secondary"
+                      style="font-size: medium; padding-left: 16px; padding-right: 16px;">Dosyayı İndir</button>
+                    <button type="button" (click)="giveLike(file.id)" routerLink="" value="Download"
+                      class="btn btn-sm btn-outline-secondary"
+                      style="font-size: medium; padding-left: 16px; padding-right: 16px; padding-top: 6px;">
+                      <!--<span *ngIf="isDisabled; else prompt">
+                                      Beğen
+                                    </span>
+                                    <i class="fa fa-heart" style="font-size: 2.8vh; color: rgba(255, 0, 0, 0.797);"></i>  {{file.likes}}</button>
+                                    <ng-template #prompt>
+                                      Beğenmekten Vazgeç
+                                    </ng-template>-->
+                      <i class="fa fa-heart" style="font-size: 2.8vh; color: rgba(255, 0, 0, 0.797);"></i>
+                      {{file.likes}}
+                    </button>
+                  </div>
+                  <small class="text-muted">Doküman Id: {{file.id}}</small>
+                </div>
+              </div>
+            </div>
+            <!--<div style="margin-left: 21rem;">
+                      <form [formGroup]="comment" (ngSubmit)="senddComment(file.id)">
+                        <textarea style="display: inline;" name="comment" type ="text" formControlName="comment" class="comment" id="comment" placeholder="Yorum yazınız."></textarea>
+                        <br>
+                        <button class="btn btn-lg btn-primary" type="submit" style="font-size: 16px; background-color: #593196;display: inline;">Yorum Yap</button>                            
+                            </form>
+                    </div>-->
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+
+  <footer class="w3-container bg-primary">
+    <div style="color: #fff;">
+      <h3>Document Share Footer</h3>
+      <!--<p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>-->
+      <div style="position:relative;bottom:55px;" class="w3-tooltip w3-right">
+        <span class="w3-text w3-theme w3-padding">Başa Dön</span>&nbsp;
+        <a class="w3-text-white" href="#myHeader"><span class="w3-xlarge">
+            <i class="fa fa-chevron-circle-up"></i></span></a>
+      </div>
+    </div>
+  </footer>

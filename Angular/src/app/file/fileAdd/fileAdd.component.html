@@ -1,0 +1,102 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<!--
+<div class="form-group">
+    <input type="file" class="form-control" id="file" (change)="onFileSelected($event)"></div>
+<button (click)="onUpload()" type="button" class="btn btn-success">Upload</button>
+-->
+
+<style>
+.container{
+	background-color:#a991d4;
+	border-radius:5px;
+	padding: 3rem;
+	margin-top: 3rem;
+}
+.center{
+	text-align:center;  
+}
+.imgupload{
+	color:#1E2832;
+	font-size:6em;
+}
+#fileup{
+    background-color:#a991d4;
+	border: 1px solid black;
+    width: 80%;
+	height: 8rem;
+}
+.select-file {
+	width: auto;
+}
+</style>
+
+
+<!-- Shareable short link of  uoloaded file 
+<div class="container text-center jumbotron"
+    *ngIf="shortLink">
+    <h2>Adrese Git</h2>
+    <a href="{{shortLink}}">{{shortLink}}</a>
+</div>-->
+  
+<!--Flag variable is used here
+<div class="container" *ngIf="loading">
+    <h3>Loading ...</h3>
+</div>-->
+
+<!--
+<div>
+    <hr>
+    <table class="table table-bordered table striped">
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Pdf Name</th>
+                <th>Display Type</th>
+            </tr>
+        </thead>
+
+        
+    </table>
+</div>
+-->
+
+
+<div class="container center col-md-6">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="white">Dosya Yükle</h1>
+			<p class="white">Burada, göndermeye yalnızca kullanıcının geçerli bir dosya yüklemesi durumunda izin verilir.</p>
+		</div>
+	</div>
+	
+	<form name="upload" method="post" action="#" enctype="multipart/form-data" accept-charset="utf-8">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="btn-container">
+                    <div type="file" class="select-file">
+						<h1 class="imgupload"><i class="fa fa-file"></i></h1>
+						<p class="white" style="color: rgb(218, 7, 7);font-weight: 500;">Dosya boyutu 5MB üstünde olmamalıdır !</p>
+						<!--<p class="white">Seçtiğiniz dosyanın boyutu: {{file.length}}</p>-->
+						<input type="file" multiple class="form-control m-4 mt-4" id="fileup" name="fileup" (change)="getFile($event)">
+						<!-- {{selectedCategory}} -->
+					</div>
+					<div class="col" style="margin: 1.75rem;">
+						<label for="category">Dosya Kategorisi Seç</label>
+						<select name="category" id="category" [(ngModel)]="selectedCategory" style="height: 40px; width: 130px; text-align:center; margin-left: 20px;">
+							<option *ngFor="let cate of fileCategorys">{{cate}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+			<!--additional fields-->
+		<div class="row">	
+			<div class="col-md-12">
+				<!--the defauld disabled btn and the actual one shown only if the three fields are valid-->
+				<button (click)="onUpload()" type="submit" class="btn btn-primary" id="submitbtn">Dosyayı Yükle  <i class="fa fa-download"></i></button>
+			</div>
+		</div>
+	</form>
+</div>
